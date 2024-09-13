@@ -1,0 +1,38 @@
+[
+    {
+        "title": "ciao 1",
+        "options": [
+            "Opzione 1",
+            "Opzione 2",
+            "Opzione 3",
+            "Opzione 4"
+        ]
+    },
+    {
+        "title": "ciao 2",
+        "options": [
+            "Opzione 1",
+            "Opzione 2",
+            "Opzione 3",
+            "Opzione 4"
+        ]
+    },
+    {
+        "title": "ciao 3",
+        "options": [
+            "Opzione 1",
+            "Opzione 2",
+            "Opzione 3",
+            "Opzione 4"
+        ]
+    },
+    {
+        "title": "ciao 4",
+        "options": [
+            "Opzione 1",
+            "Opzione 2",
+            "Opzione 3",
+            "Opzione 4"
+        ]
+    }
+]
