@@ -1,6 +1,6 @@
 <div class="w-full flex flex-col items-center justify-center gap-10 animate__animated animate__fadeIn -mt-32 mb-20">
 
-    <div class="w-full md:w-1/2 text-left">Domanda {{questionNr+1}}</div>
+    <div class="w-full md:w-1/2 text-left font-semibold">Domanda {{questionNr+1}}</div>
 
     <div class="w-full md:w-1/2 flex flex-col items-center justify-center p-5 bg-gray-100 drop-shadow-lg rounded-xl">
         <div class="w-full flex flex-col items-left justify-left gap-5">
@@ -13,9 +13,9 @@
     </div>
     
     <div class="w-full md:w-1/2 flex justify-between gap-5">
-        <a class="w-48 p-2 text-sm rounded-xl bg-gray-400 hover:bg-gray-700 hover:text-white hover:drop-shadow-lg
+        <a class="w-48 p-2 text-sm font-semibold rounded-xl bg-gray-400 hover:bg-gray-700 hover:text-white hover:drop-shadow-lg
         text-center cursor-pointer transition duration-150 ease-in" (click)="previousQuestion()">{{ questionNr === 0 ? 'Torna alla home' : 'Domanda precedente'}}</a>
-        <a class="w-48 p-2 text-sm rounded-xl {{questionNr === questions.length-1 ? 'bg-yellow-400 hover:bg-yellow-700' : 'bg-green-400 hover:bg-green-700'}} hover:text-white hover:drop-shadow-lg
+        <a class="w-48 p-2 text-sm font-semibold rounded-xl {{questionNr === questions.length-1 ? 'bg-yellow-400 hover:bg-yellow-700' : 'bg-green-400 hover:bg-green-700'}} hover:text-white hover:drop-shadow-lg
     text-center cursor-pointer transition duration-150 ease-in" (click)="nextQuestion()">{{ questionNr === questions.length-1 ? 'Termina simulazione' : 'Prossima domanda'}}</a>
     </div>
 

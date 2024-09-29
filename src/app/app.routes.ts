@@ -3,6 +3,7 @@ import { HomeComponent } from '../pages/home/home.component';
 import { QuestionComponent } from '../pages/question/question.component';
 import { ResultsComponent } from '../pages/results/results.component';
 import { ScoresComponent } from '../pages/scores/scores.component';
+import { SettingsComponent } from '../pages/settings/settings.component';
 
 export const routes: Routes = [
     {
@@ -25,5 +26,9 @@ export const routes: Routes = [
     {
         path: "scores",
         component: ScoresComponent
-    }
+    },
+    {
+        path: "settings",
+        component: SettingsComponent
+    },
 ];

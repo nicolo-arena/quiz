@@ -22,6 +22,7 @@ export class ResultsComponent implements OnInit {
   questions: Question[] = [];
   rightAnswers: number = 0;
   totalAnswers: number = 0;
+  rightQuestionsNumber: number = +(localStorage.getItem('questionsNumber') ?? 24);
 
   constructor(private questionService: QuestionService, private scoreService: ScoreService) {}
 

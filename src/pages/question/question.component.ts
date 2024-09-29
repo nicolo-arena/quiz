@@ -33,7 +33,7 @@ export class QuestionComponent implements OnInit {
   selectedOptionId: number | undefined;
   rightAnswers = true;
 
-  howManyQuestions: number = 24;
+  howManyQuestions: number = +(localStorage.getItem('questionsNumber') ?? 24);
 
   constructor(private router: Router, private questionService: QuestionService, private configurationService: ConfigurationService) {}
 

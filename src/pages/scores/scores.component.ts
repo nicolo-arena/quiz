@@ -20,6 +20,7 @@ export class ScoresComponent implements OnInit {
 
   scores: Score[] = [];
   downloadJsonHref: SafeUrl = '';
+  rightQuestionsNumber: number = +(localStorage.getItem('rightQuestionsNumber') ?? 18);
 
   constructor(private scoreService: ScoreService, private sanitizer: DomSanitizer) {}
 

@@ -1,0 +1,38 @@
+<div class="w-full flex flex-col items-center justify-center gap-10 text-center -mt-20 mb-20 animate__animated animate__fadeIn">
+    <a class="w-56 p-2 text-sm font-semibold rounded-xl bg-gray-400 hover:bg-gray-700 hover:text-white hover:drop-shadow-lg
+        text-center cursor-pointer transition duration-150 ease-in" [routerLink]="['/home']">Torna alla home</a>
+    <hr class="w-full md:w-1/3">
+    <div class="flex flex-col sm:flex-row justify-between items-center gap-5 sm:gap-10">
+        <label for="questions">Numero domande</label>
+        <input class="border rounded-lg border-black p-2" type="number" name="questions" id="questions" (change)="selectQuestionsNumber($event)" [value]="questionsNumber"/>
+    </div>
+    <div class="flex flex-col sm:flex-row justify-between items-center gap-5 sm:gap-10">
+        <label for="rightQuestions">Numero minimo di domande corrette</label>
+        <input class="border rounded-lg border-black p-2" type="number" name="rightQuestions" id="rightQuestions" (change)="selectRightQuestionsNumber($event)" [value]="rightQuestionsNumber"/>
+    </div>
+    <hr class="w-full md:w-1/3">
+    <div class="flex flex-col sm:flex-row justify-between items-center gap-10">
+        <div>Algoritmo estrazione domande</div>
+        <div class="flex flex-col gap-2">
+            <div class="flex flex-row gap-2">
+                <input type="radio" name="algorithm" id="alg-rand" (click)="selectAlgorithm('random')" [checked]="alg === 'random'" />
+                <label for="alg-rand">Casuale</label>
+            </div>
+            <div class="flex flex-row gap-2">
+                <input class="cursor-not-allowed" type="radio" name="algorithm" id="alg-error" (click)="selectAlgorithm('error')" [checked]="alg === 'error'" disabled/>
+                <label for="alg-error">Priorità domande sbagliate (non ancora attivo)</label>
+            </div>
+        </div>
+    </div>
+    <hr class="w-full md:w-1/3">
+    <a class="w-56 p-2 rounded-xl font-semibold bg-cyan-400 hover:bg-cyan-500 hover:text-white hover:drop-shadow-lg
+    text-center cursor-pointer transition duration-150 ease-in" (click)="fileUpload.click()">Carica domande</a>
+    <input type="file" class="hidden" (change)="onFileSelected($event)" #fileUpload>
+</div>
+
+<div class="absolute top-0 left-0 w-screen h-screen bg-gray-600 bg-opacity-50 flex items-center justify-center" *ngIf="showModal">
+    <div class="w-max flex flex-col items-center justify-center p-2 bg-white rounded-xl">
+        <div class="w-full flex flex-row justify-end text-red-500 leading-none cursor-pointer" (click)="toggleModal()"><span>✕</span></div>
+        <div class="p-10 {{modalSuccess ? 'text-green-600':'text-red-600'}}" [innerHTML]="modalText"></div>
+    </div>
+</div>
