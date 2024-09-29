@@ -16,11 +16,11 @@
         <div class="flex flex-col gap-2">
             <div class="flex flex-row gap-2">
                 <input type="radio" name="algorithm" id="alg-rand" (click)="selectAlgorithm('random')" [checked]="alg === 'random'" />
-                <label for="alg-rand">Casuale</label>
+                <label for="alg-rand" class="text-left">Casuale</label>
             </div>
             <div class="flex flex-row gap-2">
                 <input class="cursor-not-allowed" type="radio" name="algorithm" id="alg-error" (click)="selectAlgorithm('error')" [checked]="alg === 'error'" disabled/>
-                <label for="alg-error">Priorità domande sbagliate (non ancora attivo)</label>
+                <label for="alg-error" class="text-left">Priorità domande sbagliate (non ancora attivo)</label>
             </div>
         </div>
     </div>
