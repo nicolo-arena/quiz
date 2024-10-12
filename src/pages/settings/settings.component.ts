@@ -23,6 +23,7 @@ export class SettingsComponent {
   questionsNumber: number = +(localStorage.getItem('questionsNumber') ?? 24);
   rightQuestionsNumber: number = +(localStorage.getItem('rightQuestionsNumber') ?? 18);
   alg: string = localStorage.getItem('algorithm') ?? 'random';
+  subject: string = localStorage.getItem('subject') ?? '';
 
   constructor(private configurationService: ConfigurationService, private cd: ChangeDetectorRef) {}
 
@@ -66,5 +67,9 @@ export class SettingsComponent {
 
   selectAlgorithm(alg: string) {
     localStorage.setItem('algorithm', alg);
+  }
+
+  selectSubject(event: Event) {
+    localStorage.setItem('subject', (event.target as any).value);
   }
 }

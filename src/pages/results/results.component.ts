@@ -23,6 +23,7 @@ export class ResultsComponent implements OnInit {
   rightAnswers: number = 0;
   totalAnswers: number = 0;
   rightQuestionsNumber: number = +(localStorage.getItem('rightQuestionsNumber') ?? 18);
+  subject: string = localStorage.getItem('subject') ?? '';
 
   constructor(private questionService: QuestionService, private scoreService: ScoreService) {}
 
@@ -44,6 +45,7 @@ export class ResultsComponent implements OnInit {
   saveScore() {
     this.scoreService.saveScore({
       date: new Date(),
+      subject: this.subject,
       rightAnswers: this.rightAnswers,
       totalAnswers: this.totalAnswers
     });
