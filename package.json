@@ -10,7 +10,7 @@
     "start": "ng build && electron .",
     "build": "ng build",
     "build:prod": "ng build --base-href https://nicolo-arena.github.io/quiz/",
-    "deploy:prod": "gh-pages -d dist/quiz/browser",
+    "deploy:prod": "angular-cli-ghpages -d dist/quiz/browser/ --no-silent",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
     "pack": "electron-builder --dir",
