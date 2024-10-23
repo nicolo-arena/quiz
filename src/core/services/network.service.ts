@@ -12,7 +12,6 @@ export class NetworkService {
   constructor(private httpClient: HttpClient) {}
   
   get(path: string): Observable<any> {
-    console.log(this.apiUrl);
     return this.httpClient.get(this.apiUrl + path);
   }
 
