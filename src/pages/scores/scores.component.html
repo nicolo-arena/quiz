@@ -4,27 +4,25 @@
         <a class="w-48 p-2 text-sm font-semibold rounded-xl bg-gray-400 hover:bg-gray-700 hover:text-white hover:drop-shadow-lg
         text-center cursor-pointer transition duration-150 ease-in" [routerLink]="['/home']">Torna alla home</a>
         <a class="w-48 p-2 text-sm font-semibold rounded-xl bg-red-400 hover:bg-red-700 hover:text-white hover:drop-shadow-lg
-        text-center cursor-pointer transition duration-150 ease-in" (click)="deleteScores()">Elimina punteggi</a>
-        <a class="w-48 p-2 text-sm font-semibold rounded-xl bg-yellow-400 hover:bg-yellow-600 hover:text-white hover:drop-shadow-lg
-        text-center cursor-pointer transition duration-150 ease-in" [href]="downloadJsonHref" download="download.json">Esporta</a>
+        text-center cursor-pointer transition duration-150 ease-in disabled">Elimina simulazioni</a>
     </div>
 
     <div class="w-full text-center flex flex-col items-center justify-center gap-5">
-        <div class="font-semibold">Storico dei punteggi</div>
+        <div class="font-semibold">Storico delle simulazioni</div>
 
         <div
-            *ngFor="let score of scores" 
+            *ngFor="let test of tests" 
             class="w-full md:w-1/2 flex flex-col items-center justify-center p-5 bg-gray-100 drop-shadow-lg rounded-xl">
-            <div class="w-full flex flex-row justify-between justify-left gap-5">
+            <div class="w-full flex flex-col sm:flex-row justify-between gap-5">
                 <div class="flex flex-col">
-                    <div>{{score.subject}}</div>
-                    <div>{{score.date | date: 'dd MMMM YYYY HH:mm:ss' | titlecase }}</div>
+                    <div class="sm:text-left">{{test.paniere.name}}</div>
+                    <div>{{test.creationDate | date: 'dd MMMM YYYY HH:mm:ss' | titlecase }}</div>
                 </div>
                 <div class="flex flex-row justify-center items-center gap-5">
                     <div class="text-lg">Punteggio:</div>
                     <div class="flex flex-row">
-                        <div class="{{score.rightAnswers >= rightQuestionsNumber ? 'text-green-500' : 'text-red-500'}}">{{score.rightAnswers}}</div>
-                        <div>/{{score.totalAnswers}}</div>
+                        <div class="{{test.score >= test.minScore ? 'text-green-500' : 'text-red-500'}}">{{test.score}}</div>
+                        <div>/{{test.testQuestions.length}}</div>
                     </div>
                 </div>
             </div>

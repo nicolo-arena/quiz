@@ -1,16 +1,14 @@
 <div class="w-full flex flex-col items-center justify-center gap-10 text-center -mt-20 mb-20">
     <h1 class="text-2xl font-semibold animate__animated animate__fadeIn">Simulazione d'esame</h1>
-    <h2 class="text-lg animate__animated animate__fadeIn">Ci siamo quasi! ❤️</h2>
     <a class="w-56 p-2 font-semibold rounded-xl bg-green-400 text-center {{startEnabled ? 
     'cursor-pointer hover:bg-green-500 hover:text-white hover:drop-shadow-lg' : 'cursor-not-allowed'}} 
     transition duration-150 ease-in animate__animated animate__fadeIn" [ariaDisabled]="startEnabled" [routerLink]="[startEnabled ? '/question' : '']">Start</a>
     <hr class="w-full md:w-1/3 animate__animated animate__fadeIn">
     <a class="w-56 p-2 font-semibold rounded-xl bg-yellow-400 hover:bg-yellow-500 hover:text-white hover:drop-shadow-lg
-    text-center cursor-pointer transition duration-150 ease-in animate__animated animate__fadeIn" [routerLink]="['/scores']">Storico punteggi</a>
+    text-center cursor-pointer transition duration-150 ease-in animate__animated animate__fadeIn" [routerLink]="['/scores']">Storico simulazioni</a>
     <hr class="w-full md:w-1/3 animate__animated animate__fadeIn">
     <a class="w-56 p-2 font-semibold rounded-xl bg-gray-400 hover:bg-gray-500 hover:text-white hover:drop-shadow-lg
     text-center cursor-pointer transition duration-150 ease-in animate__animated animate__fadeIn" [routerLink]="['/settings']">Impostazioni</a>
-    <input type="file" class="hidden" (change)="onFileSelected($event)" #fileUpload>
 </div>
 
 <div class="absolute top-0 left-0 w-screen h-screen bg-gray-600 bg-opacity-50 flex items-center justify-center" *ngIf="showModal">

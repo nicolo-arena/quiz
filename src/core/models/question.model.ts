@@ -1,8 +1,9 @@
-import { Option } from "./option.model";
+import { Answer } from "./answer.model";
 
 export interface Question {
-    id: number;
-    title: string;
-    options: Option[];
-    chosenOptionId?: number;
+    questionId: number;
+    creationDate: Date;
+    questionText: string;
+    questionImageBase64: string;
+    answers: Answer[];
 }

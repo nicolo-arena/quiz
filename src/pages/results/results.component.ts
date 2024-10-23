@@ -1,10 +1,9 @@
 import { CommonModule } from '@angular/common';
-import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import 'animate.css';
-import { Question } from '../../core/models/question.model';
-import { ScoreService } from '../../core/services/score.service';
-import { QuestionService } from '../../core/services/question.service';
+import { Test } from '../../core/models/test.model';
+import { Config } from '../../core/models/config.model';
 
 @Component({
   selector: 'app-prize',
@@ -14,41 +13,26 @@ import { QuestionService } from '../../core/services/question.service';
     RouterModule
   ],
   templateUrl: './results.component.html',
-  styleUrl: './results.component.css',
-  changeDetection: ChangeDetectionStrategy.OnPush,
+  styleUrl: './results.component.css'
 })
 export class ResultsComponent implements OnInit {
 
-  questions: Question[] = [];
-  rightAnswers: number = 0;
-  totalAnswers: number = 0;
-  rightQuestionsNumber: number = +(localStorage.getItem('rightQuestionsNumber') ?? 18);
-  subject: string = localStorage.getItem('subject') ?? '';
+  test: Test | undefined;
+  score: number = 0;
+  totalQuestions: number = 0;
+  config: Config | undefined;
 
-  constructor(private questionService: QuestionService, private scoreService: ScoreService) {}
+  constructor() {}
 
   ngOnInit(): void {
-    this.getQuestions();
-    this.countRightAnswers();
-    this.saveScore();
+    this.readTestFromState();
   }
 
-  getQuestions() {
-    this.questions = this.questionService.getQuestions();
-  }
-
-  countRightAnswers() {
-    this.rightAnswers = this.questions.filter(quest => quest.chosenOptionId === quest.options.find(opt => opt.right)?.id).length;
-    this.totalAnswers = this.questions.length;
-  }
-
-  saveScore() {
-    this.scoreService.saveScore({
-      date: new Date(),
-      subject: this.subject,
-      rightAnswers: this.rightAnswers,
-      totalAnswers: this.totalAnswers
-    });
+  readTestFromState() {
+    this.test = history.state['test'];
+    this.config = history.state['config'];
+    this.score = this.test?.score ?? 0;
+    this.totalQuestions = this.test?.testQuestions.length ?? 0;
   }
 
 }

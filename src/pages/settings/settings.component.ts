@@ -1,8 +1,12 @@
 import { CommonModule } from '@angular/common';
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit } from '@angular/core';
+import { Component, DestroyRef, inject, OnInit } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import 'animate.css';
-import { ConfigurationService } from '../../core/services/configuration.service';
+import { ConfigService } from '../../core/services/config.service';
+import { Config, EditConfigRequest } from '../../core/models/config.model';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { Paniere } from '../../core/models/paniere.model';
+import { PaniereService } from '../../core/services/paniere.service';
 
 @Component({
   selector: 'app-settings',
@@ -12,64 +16,64 @@ import { ConfigurationService } from '../../core/services/configuration.service'
     RouterModule
   ],
   templateUrl: `./settings.component.html`,
-  styleUrl: './settings.component.css',
-  changeDetection: ChangeDetectionStrategy.OnPush,
+  styleUrl: './settings.component.css'
 })
-export class SettingsComponent {
+export class SettingsComponent implements OnInit {
   
-  modalSuccess: boolean = true;
-  modalText: string = '';
-  showModal: boolean = false;
-  questionsNumber: number = +(localStorage.getItem('questionsNumber') ?? 24);
-  rightQuestionsNumber: number = +(localStorage.getItem('rightQuestionsNumber') ?? 18);
+  destroyRef = inject(DestroyRef);
+
+  panieri: Paniere[] = [];
+  config: Config | undefined;
   alg: string = localStorage.getItem('algorithm') ?? 'random';
-  subject: string = localStorage.getItem('subject') ?? '';
 
-  constructor(private configurationService: ConfigurationService, private cd: ChangeDetectorRef) {}
+  constructor(private configService: ConfigService, private paniereService: PaniereService) {}
 
-  onFileSelected(event: Event) {
-    const file: File = (event.target as HTMLInputElement).files![0];
-    const fileReader = new FileReader();
+  ngOnInit() {
+    this.getConfig();
+    this.getPanieri();
+  }
 
-    if (file) {
-      fileReader.onload = () => {
-        const text = (fileReader.result as string).replaceAll("ˈ", "'").replaceAll("`", "'").replaceAll(/1\)/g, "1.").replaceAll(/2\)/g, "2.").replaceAll(/3\)/g, "3.").replaceAll(/4\)/g, "4.").replaceAll(/5\)/g, "5.").replaceAll(/6\)/g, "6.").replaceAll(/7\)/g, "7.");
-        try {
-          const configuration = {
-            default: JSON.parse(text)
-          };
-          this.configurationService.saveConfiguration(configuration);
-          this.modalSuccess = true;
-          this.modalText = "Domande caricate correttamente";
-        } catch (error) {
-          this.modalSuccess = false;
-          this.modalText = "Errore nel caricamento del file, controlla il messaggio:<br>" + error;
-        } finally {
-          this.showModal = true;
-          this.cd.detectChanges();
-        }
-      }
-      fileReader.readAsText(file);
+  getConfig() {
+    this.configService.getConfig().pipe(takeUntilDestroyed(this.destroyRef)).subscribe(config => this.config = config);
+  }
+
+  getPanieri() {
+    this.paniereService.getPanieri().pipe(takeUntilDestroyed(this.destroyRef)).subscribe(panieri => this.panieri = panieri);
+  }
+
+  selectPaniere(event: Event) {
+    const paniereId: number = (event.target as any).value;
+    if (this.config) {
+      const editConfigRequest: EditConfigRequest = {
+        paniereId
+      };
+      this.configService.editConfig(editConfigRequest).pipe(takeUntilDestroyed(this.destroyRef)).subscribe(config => this.config = config);
     }
   }
 
-  toggleModal() {
-    this.showModal = !this.showModal;
-  }
-
   selectQuestionsNumber(event: Event) {
-    localStorage.setItem('questionsNumber', (event.target as any).value);
+    const questionsPerTest: number = (event.target as any).value;
+    if (this.config) {
+      const editConfigRequest: EditConfigRequest = {
+        questionsPerTest
+      };
+      this.configService.editConfig(editConfigRequest).pipe(takeUntilDestroyed(this.destroyRef)).subscribe(config => this.config = config);
+    }
   }
 
   selectRightQuestionsNumber(event: Event) {
-    localStorage.setItem('rightQuestionsNumber', (event.target as any).value);
+    const minCorrectAnswers: number = (event.target as any).value;
+    if (this.config) {
+      const editConfigRequest: EditConfigRequest = {
+        minCorrectAnswers
+      };
+      this.configService.editConfig(editConfigRequest).pipe(takeUntilDestroyed(this.destroyRef)).subscribe(config => this.config = config);
+    }
   }
 
   selectAlgorithm(alg: string) {
     localStorage.setItem('algorithm', alg);
   }
 
-  selectSubject(event: Event) {
-    localStorage.setItem('subject', (event.target as any).value);
-  }
+  
 }

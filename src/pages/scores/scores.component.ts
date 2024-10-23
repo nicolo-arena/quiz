@@ -1,9 +1,9 @@
 import { CommonModule } from '@angular/common';
-import { ChangeDetectionStrategy, Component, type OnInit } from '@angular/core';
-import { Score } from '../../core/models/score.model';
+import { Component, DestroyRef, inject, type OnInit } from '@angular/core';
 import { RouterModule } from '@angular/router';
-import { ScoreService } from '../../core/services/score.service';
-import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
+import { Test } from '../../core/models/test.model';
+import { TestService } from '../../core/services/test.service';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
 @Component({
   selector: 'app-scores',
@@ -13,36 +13,25 @@ import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
     RouterModule
   ],
   templateUrl: './scores.component.html',
-  styleUrl: './scores.component.css',
-  changeDetection: ChangeDetectionStrategy.OnPush,
+  styleUrl: './scores.component.css'
 })
 export class ScoresComponent implements OnInit {
 
-  scores: Score[] = [];
-  downloadJsonHref: SafeUrl = '';
-  rightQuestionsNumber: number = +(localStorage.getItem('rightQuestionsNumber') ?? 18);
+  tests: Test[] = [];
 
-  constructor(private scoreService: ScoreService, private sanitizer: DomSanitizer) {}
+  destroyRef = inject(DestroyRef);
+
+  constructor(private testService: TestService) {}
 
   ngOnInit(): void {
-    this.getScores();
-    this.exportAsJson();
+    this.getTests();
   }
 
-  getScores() {
-    this.scores = this.scoreService.getScores();
-    this.scores.sort((score1, score2) => score1.date < score2.date ? 1 : -1);
-  }
-
-  exportAsJson() {
-    let theJSON = JSON.stringify(this.scores);
-    let uri = this.sanitizer.bypassSecurityTrustUrl("data:text/json;charset=UTF-8," + encodeURIComponent(theJSON));
-    this.downloadJsonHref = uri;
-  }
-
-  deleteScores() {
-    this.scoreService.deleteAll();
-    this.scores = [];
+  getTests() {
+    this.testService.getTests().pipe(takeUntilDestroyed(this.destroyRef)).subscribe(tests => {
+      this.tests = tests;
+      this.tests.sort((t1,t2) => t1.creationDate < t2.creationDate ? 1 : -1);
+    });
   }
 
 }

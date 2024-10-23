@@ -1,6 +1,6 @@
 import { Routes } from '@angular/router';
 import { HomeComponent } from '../pages/home/home.component';
-import { QuestionComponent } from '../pages/question/question.component';
+import { QuestionComponent } from '../pages/test/test.component';
 import { ResultsComponent } from '../pages/results/results.component';
 import { ScoresComponent } from '../pages/scores/scores.component';
 import { SettingsComponent } from '../pages/settings/settings.component';

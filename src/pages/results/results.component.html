@@ -11,24 +11,24 @@
         <div class="flex flex-row justify-center items-center gap-5">
             <div class="text-lg">Punteggio:</div>
             <div class="flex flex-row">
-                <div class="{{rightAnswers >= rightQuestionsNumber ? 'text-green-500' : 'text-red-500'}}">{{rightAnswers}}</div>
-                <div>/{{totalAnswers}}</div>
+                <div class="{{score >= (config?.minCorrectAnswers ?? 0) ? 'text-green-500' : 'text-red-500'}}">{{score}}</div>
+                <div>/{{totalQuestions}}</div>
             </div>
         </div>
         
         <div
-            *ngFor="let question of questions" 
+            *ngFor="let testQuestion of test?.testQuestions" 
             class="w-full md:w-1/2 flex flex-col items-center justify-center p-5 bg-gray-100 drop-shadow-lg rounded-xl">
             <div class="w-full flex flex-col items-left justify-left gap-5">
-                <div class="text-left font-semibold" [innerHTML]="question.title"></div>
-                <div class="text-left text-xs text-red-400" *ngIf="question.chosenOptionId === undefined">(Nessuna risposta selezionata)</div>
-                <div *ngFor="let option of question.options" class="flex flex-row gap-2">
+                <div class="text-left font-semibold" [innerHTML]="testQuestion.question.questionText"></div>
+                <div class="text-left text-xs text-red-400" *ngIf="testQuestion.givenAnswerId === undefined">(Nessuna risposta selezionata)</div>
+                <div *ngFor="let answer of testQuestion.question.answers" class="flex flex-row gap-2">
                     <label class="text-left px-1 rounded-lg {{
-                        question.chosenOptionId == option.id ? 
-                            (option.right ? 'bg-green-400' : 'bg-red-400') 
+                        testQuestion.givenAnswerId == answer.answerId ? 
+                            (answer.correct ? 'bg-green-400' : 'bg-red-400') 
                             : 
-                            (option.right ? 'bg-green-400' : '')
-                        }}" [innerHTML]="option.text"></label>
+                            (answer.correct ? 'bg-green-400' : '')
+                        }}" [innerHTML]="answer.text"></label>
                 </div>
             </div>
         </div>

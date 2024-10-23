@@ -4,16 +4,18 @@
     <hr class="w-full md:w-1/3">
     <div class="flex flex-col sm:flex-row justify-between items-center gap-5 sm:gap-10">
         <label for="questions">Materia attuale</label>
-        <input class="border rounded-lg border-black p-2" type="text" name="subject" id="subject" (change)="selectSubject($event)" [value]="subject"/>
+        <select class="border rounded-lg border-black p-2" name="paniere" id="paniere" (change)="selectPaniere($event)">
+            <option [value]="paniere.paniereId" [selected]="config?.currentPaniere?.paniereId === paniere.paniereId" *ngFor="let paniere of panieri">{{paniere.name}}</option>
+        </select>
     </div>
     <hr class="w-full md:w-1/3">
     <div class="flex flex-col sm:flex-row justify-between items-center gap-5 sm:gap-10">
         <label for="questions">Numero domande</label>
-        <input class="border rounded-lg border-black p-2" type="number" name="questions" id="questions" (change)="selectQuestionsNumber($event)" [value]="questionsNumber"/>
+        <input class="border rounded-lg border-black p-2" type="number" name="questions" id="questions" (change)="selectQuestionsNumber($event)" [value]="config?.questionsPerTest"/>
     </div>
     <div class="flex flex-col sm:flex-row justify-between items-center gap-5 sm:gap-10">
         <label for="rightQuestions">Numero minimo di domande corrette</label>
-        <input class="border rounded-lg border-black p-2" type="number" name="rightQuestions" id="rightQuestions" (change)="selectRightQuestionsNumber($event)" [value]="rightQuestionsNumber"/>
+        <input class="border rounded-lg border-black p-2" type="number" name="rightQuestions" id="rightQuestions" (change)="selectRightQuestionsNumber($event)" [value]="config?.minCorrectAnswers"/>
     </div>
     <hr class="w-full md:w-1/3">
     <div class="flex flex-col sm:flex-row justify-between items-center gap-10">
@@ -31,13 +33,6 @@
     </div>
     <hr class="w-full md:w-1/3">
     <a class="w-56 p-2 rounded-xl font-semibold bg-cyan-400 hover:bg-cyan-500 hover:text-white hover:drop-shadow-lg
-    text-center cursor-pointer transition duration-150 ease-in" (click)="fileUpload.click()">Carica domande</a>
-    <input type="file" class="hidden" (change)="onFileSelected($event)" #fileUpload>
-</div>
-
-<div class="absolute top-0 left-0 w-screen h-screen bg-gray-600 bg-opacity-50 flex items-center justify-center" *ngIf="showModal">
-    <div class="w-max flex flex-col items-center justify-center p-2 bg-white rounded-xl">
-        <div class="w-full flex flex-row justify-end text-red-500 leading-none cursor-pointer" (click)="toggleModal()"><span>✕</span></div>
-        <div class="p-10 {{modalSuccess ? 'text-green-600':'text-red-600'}}" [innerHTML]="modalText"></div>
-    </div>
+    text-center cursor-pointer transition duration-150 ease-in" (click)="fileUpload.click()">Modifica domande</a>
+    <input type="file" class="hidden" #fileUpload>
 </div>
