@@ -81,9 +81,9 @@ export class QuestionComponent implements OnInit {
 
   setTitleAndOptions() {
     if (this.test) {
-      this.test.testQuestions[this.questionNr].question.questionText = this.test.testQuestions[this.questionNr].question.questionText.replaceAll("\n", "<br>");
+      this.test.testQuestions[this.questionNr].question.questionText = this.test.testQuestions[this.questionNr].question.questionText?.replaceAll("\n", "<br>");
       this.test.testQuestions[this.questionNr].question.answers.forEach((ans, index) => {
-        ans.text = ans.text.replaceAll("\n", "<br>");
+        ans.text = ans.text?.replaceAll("\n", "<br>");
         this.test!.testQuestions[this.questionNr].question.answers[index] = ans;
       });
     }

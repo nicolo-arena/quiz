@@ -1,32 +1,58 @@
-<div class="w-full flex flex-col items-center justify-center animate__animated animate__fadeIn gap-5 mb-20">
+<div class="w-full flex flex-col items-center justify-center animate__animated animate__fadeIn gap-5 -mt-40 mb-20">
 
-    <div class="w-full md:w-1/2 flex justify-between gap-5 -mt-40">
-        <a class="w-48 p-2 text-sm font-semibold rounded-xl bg-gray-400 hover:bg-gray-700 hover:text-white hover:drop-shadow-lg
+    <a class="w-48 p-2 text-sm font-semibold rounded-xl bg-gray-400 hover:bg-gray-700 hover:text-white hover:drop-shadow-lg
         text-center cursor-pointer transition duration-150 ease-in" [routerLink]="['/home']">Torna alla home</a>
-    </div>
-
+    
     <div class="w-full text-center flex flex-col items-center justify-center gap-5">
         <div class="font-semibold">{{paniere?.name}}</div>
 
         <div class="w-full md:w-1/2 flex flex-col p-5 bg-gray-100 drop-shadow-lg rounded-xl">
-            <textarea name="questionText" id="questionText" rows="2" class="rounded-lg p-2 border border-gray-500" 
-                placeholder="Inserisci domanda" [(ngModel)]="questionText"></textarea>
+            <div class="flex flex-row gap-5">
+                <textarea name="questionText" id="questionText" class="w-full rounded-lg p-2 border border-gray-500" 
+                    placeholder="Inserisci domanda" [(ngModel)]="questionText"></textarea>
+                <img *ngIf="questionImageBase64" [src]="questionImageBase64" class="object-contain" width="200" height="100" />
+                <a class="w-56 p-2 rounded-lg font-semibold bg-white border border-cyan-400 hover:drop-shadow-lg
+                        text-center cursor-pointer transition duration-150 ease-in flex items-center justify-center" (click)="fileUpload0.click()" (dragover)="onDragOver($event, 0)" (dragleave)="onDragLeave($event, 0)" (drop)="onDrop($event, 0)">
+                    <div>+ Immagine</div>
+                </a>
+                <input type="file" class="hidden" (change)="onFileSelected($event, 0)" #fileUpload0>
+            </div>
 
             <div class="w-full flex flex-row gap-5 mt-2">
                 <input type="radio" name="answer" id="answer1radio" value="1" [(ngModel)]="correctAnswer">
-                <input type="text" id="answer1" class="w-full p-2 border border-gray-500 rounded-lg" placeholder="Inserisci risposta" [(ngModel)]="answer1">
+                <textarea id="answer1" class="w-full p-2 border border-gray-500 rounded-lg" placeholder="Inserisci risposta" [(ngModel)]="answer1"></textarea>
+                <img *ngIf="answer1ImageBase64" [src]="answer1ImageBase64" class="object-contain" width="200" height="100" />
+                <a class="w-56 p-2 rounded-lg font-semibold bg-white border border-cyan-400 hover:drop-shadow-lg
+                    text-center cursor-pointer transition duration-150 ease-in flex items-center justify-center" (click)="fileUpload1.click()" 
+                    (dragover)="onDragOver($event, 1)" (dragleave)="onDragLeave($event, 1)" (drop)="onDrop($event, 1)"><div>+ Immagine</div></a>
+                <input type="file" class="hidden" (change)="onFileSelected($event, 1)" #fileUpload1>
             </div>
             <div class="w-full flex flex-row gap-5 mt-2">
                 <input type="radio" name="answer" id="answer2radio" value="2" [(ngModel)]="correctAnswer">
-                <input type="text" id="answer2" class="w-full p-2 border border-gray-500 rounded-lg" placeholder="Inserisci risposta" [(ngModel)]="answer2">
+                <textarea id="answer2" class="w-full p-2 border border-gray-500 rounded-lg" placeholder="Inserisci risposta" [(ngModel)]="answer2"></textarea>
+                <img *ngIf="answer2ImageBase64" [src]="answer2ImageBase64" class="object-contain" width="200" height="100" />
+                <a class="w-56 p-2 rounded-lg font-semibold bg-white border border-cyan-400 hover:drop-shadow-lg
+                    text-center cursor-pointer transition duration-150 ease-in flex items-center justify-center" (click)="fileUpload2.click()" 
+                    (dragover)="onDragOver($event, 2)" (dragleave)="onDragLeave($event, 2)" (drop)="onDrop($event, 2)"><div>+ Immagine</div></a>
+                <input type="file" class="hidden" (change)="onFileSelected($event, 2)" #fileUpload2>
             </div>
             <div class="w-full flex flex-row gap-5 mt-2">
                 <input type="radio" name="answer" id="answer3radio" value="3" [(ngModel)]="correctAnswer">
-                <input type="text" id="answer3" class="w-full p-2 border border-gray-500 rounded-lg" placeholder="Inserisci risposta" [(ngModel)]="answer3">
+                <textarea id="answer3" class="w-full p-2 border border-gray-500 rounded-lg" placeholder="Inserisci risposta" [(ngModel)]="answer3"></textarea>
+                <img *ngIf="answer3ImageBase64" [src]="answer3ImageBase64" class="object-contain" width="200" height="100" />
+                <a class="w-56 p-2 rounded-lg font-semibold bg-white border border-cyan-400 hover:drop-shadow-lg
+                    text-center cursor-pointer transition duration-150 ease-in flex items-center justify-center" (click)="fileUpload3.click()" 
+                    (dragover)="onDragOver($event, 3)" (dragleave)="onDragLeave($event, 3)" (drop)="onDrop($event, 3)"><div>+ Immagine</div></a>
+                <input type="file" class="hidden" (change)="onFileSelected($event, 3)" #fileUpload3>
             </div>
             <div class="w-full flex flex-row gap-5 mt-2">
                 <input type="radio" name="answer" id="answer4radio" value="4" [(ngModel)]="correctAnswer">
-                <input type="text" id="answer4" class="w-full p-2 border border-gray-500 rounded-lg" placeholder="Inserisci risposta" [(ngModel)]="answer4">
+                <textarea id="answer4" class="w-full p-2 border border-gray-500 rounded-lg" placeholder="Inserisci risposta" [(ngModel)]="answer4"></textarea>
+                <img *ngIf="answer4ImageBase64" [src]="answer4ImageBase64" class="object-contain" width="200" height="100" />
+                <a class="w-56 p-2 rounded-lg font-semibold bg-white border border-cyan-400 hover:drop-shadow-lg
+                    text-center cursor-pointer transition duration-150 ease-in flex items-center justify-center" (click)="fileUpload4.click()" 
+                    (dragover)="onDragOver($event, 4)" (dragleave)="onDragLeave($event, 4)" (drop)="onDrop($event, 4)"><div>+ Immagine</div></a>
+                <input type="file" class="hidden" (change)="onFileSelected($event, 4)" #fileUpload4>
             </div>
             <a class="w-full mt-5 p-2 text-sm font-semibold rounded-lg bg-green-500 hover:bg-green-700 hover:text-white hover:drop-shadow-lg
                     text-center cursor-pointer transition duration-150 ease-in text-white" (click)="addQuestion()">Aggiungi</a>
@@ -35,14 +61,16 @@
         <hr class="w-full md:w-1/2 my-5">
 
         <div
-            *ngFor="let question of paniere?.questions;let i = index" 
+            *ngFor="let question of paniere?.questions; let i = index" 
             class="w-full md:w-1/2 flex flex-col sm:flex-row gap-5 p-5 bg-gray-100 drop-shadow-lg rounded-xl">
             <div class="w-full flex flex-col items-left justify-left gap-5">
-                <div class="flex flex-row justify-between gap-5">
-                    <div class="text-left font-semibold" [innerHTML]="(i+1) + '. ' + question.questionText"></div>
+                <div class="flex flex-col gap-1">
+                    <div class="text-left font-semibold" [innerHTML]="((paniere?.questions?.length ?? 0) - i) + '. ' + (question.questionText ?? '')"></div>
+                    <img *ngIf="question.questionImageBase64" width="200" height="100" class="object-contain self-center" [src]="question.questionImageBase64">
                 </div>
                 <div *ngFor="let answer of question.answers" class="flex flex-row gap-2">
-                    <label class="text-left px-1 rounded-lg {{answer.correct ? 'bg-green-400' : ''}}" [innerHTML]="answer.text"></label>
+                    <div class="text-left px-1 rounded-lg {{answer.correct ? 'bg-green-400' : ''}}" [innerHTML]="answer.text"></div>
+                    <img *ngIf="answer.imageBase64" width="200" height="100" class="object-contain" [src]="answer.imageBase64">
                 </div>
             </div>
             <a class="w-full sm:w-44 h-fit p-2 text-sm font-semibold rounded-lg bg-red-500 hover:bg-red-700 hover:text-white hover:drop-shadow-lg
