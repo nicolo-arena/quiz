@@ -11,8 +11,11 @@ export class PaniereService {
 
   constructor(private network: NetworkService) {}
 
-  public getPanieri(): Observable<Paniere[]> {
+  getPanieri(): Observable<Paniere[]> {
     return this.network.get('/api/paniere') as Observable<Paniere[]>;
   }
 
+  createPaniere(name: string) {
+    return this.network.post('/api/paniere/createpaniere', {name}) as Observable<Paniere>;
+  }
 }

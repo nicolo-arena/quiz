@@ -7,13 +7,15 @@ import { Config, EditConfigRequest } from '../../core/models/config.model';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { Paniere } from '../../core/models/paniere.model';
 import { PaniereService } from '../../core/services/paniere.service';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-settings',
   standalone: true,
   imports: [
     CommonModule,
-    RouterModule
+    RouterModule,
+    FormsModule
   ],
   templateUrl: `./settings.component.html`,
   styleUrl: './settings.component.css'
@@ -22,6 +24,7 @@ export class SettingsComponent implements OnInit {
   
   destroyRef = inject(DestroyRef);
 
+  paniereName: string | undefined;
   panieri: Paniere[] = [];
   config: Config | undefined;
   alg: string = localStorage.getItem('algorithm') ?? 'random';
@@ -75,5 +78,12 @@ export class SettingsComponent implements OnInit {
     localStorage.setItem('algorithm', alg);
   }
 
-  
+  createPaniere() {
+    if (this.paniereName) {
+      this.paniereService.createPaniere(this.paniereName).pipe(takeUntilDestroyed(this.destroyRef)).subscribe(paniere => {
+        this.panieri.push(paniere);
+        this.paniereName = undefined;
+      });
+    }
+  }
 }
