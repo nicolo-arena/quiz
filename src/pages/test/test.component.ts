@@ -109,7 +109,7 @@ export class QuestionComponent implements OnInit {
         this.questionNr++;
         this.maxProgress = Math.max(this.questionNr, this.maxProgress);
         this.resetQuestion();
-        if (this.selectedAnswerId === undefined && this.questionNr == this.maxProgress) {
+        if (!this.selectedAnswerId && this.questionNr == this.maxProgress) {
           this.randomSortAnswers();
         }
       } else {

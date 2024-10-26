@@ -4,3 +4,9 @@ export interface Answer {
     imageBase64: string;
     correct: boolean;
 }
+
+export interface CreateAnswerRequest {
+    text?: string;
+    imageBase64?: string;
+    correct: boolean;
+}

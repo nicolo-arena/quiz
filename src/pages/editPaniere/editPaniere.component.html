@@ -1,0 +1,55 @@
+<div class="w-full flex flex-col items-center justify-center animate__animated animate__fadeIn gap-5 mb-20">
+
+    <div class="w-full md:w-1/2 flex justify-between gap-5 -mt-40">
+        <a class="w-48 p-2 text-sm font-semibold rounded-xl bg-gray-400 hover:bg-gray-700 hover:text-white hover:drop-shadow-lg
+        text-center cursor-pointer transition duration-150 ease-in" [routerLink]="['/home']">Torna alla home</a>
+    </div>
+
+    <div class="w-full text-center flex flex-col items-center justify-center gap-5">
+        <div class="font-semibold">{{paniere?.name}}</div>
+
+        <div class="w-full md:w-1/2 flex flex-col p-5 bg-gray-100 drop-shadow-lg rounded-xl">
+            <textarea name="questionText" id="questionText" rows="2" class="rounded-lg p-2 border border-gray-500" 
+                placeholder="Inserisci domanda" [(ngModel)]="questionText"></textarea>
+
+            <div class="w-full flex flex-row gap-5 mt-2">
+                <input type="radio" name="answer" id="answer1radio" value="1" [(ngModel)]="correctAnswer">
+                <input type="text" id="answer1" class="w-full p-2 border border-gray-500 rounded-lg" placeholder="Inserisci risposta" [(ngModel)]="answer1">
+            </div>
+            <div class="w-full flex flex-row gap-5 mt-2">
+                <input type="radio" name="answer" id="answer2radio" value="2" [(ngModel)]="correctAnswer">
+                <input type="text" id="answer2" class="w-full p-2 border border-gray-500 rounded-lg" placeholder="Inserisci risposta" [(ngModel)]="answer2">
+            </div>
+            <div class="w-full flex flex-row gap-5 mt-2">
+                <input type="radio" name="answer" id="answer3radio" value="3" [(ngModel)]="correctAnswer">
+                <input type="text" id="answer3" class="w-full p-2 border border-gray-500 rounded-lg" placeholder="Inserisci risposta" [(ngModel)]="answer3">
+            </div>
+            <div class="w-full flex flex-row gap-5 mt-2">
+                <input type="radio" name="answer" id="answer4radio" value="4" [(ngModel)]="correctAnswer">
+                <input type="text" id="answer4" class="w-full p-2 border border-gray-500 rounded-lg" placeholder="Inserisci risposta" [(ngModel)]="answer4">
+            </div>
+            <a class="w-full mt-5 p-2 text-sm font-semibold rounded-lg bg-green-500 hover:bg-green-700 hover:text-white hover:drop-shadow-lg
+                    text-center cursor-pointer transition duration-150 ease-in text-white" (click)="addQuestion()">Aggiungi</a>
+        </div>
+
+        <hr class="w-full md:w-1/2 my-5">
+
+        <div
+            *ngFor="let question of paniere?.questions;let i = index" 
+            class="w-full md:w-1/2 flex flex-col sm:flex-row gap-5 p-5 bg-gray-100 drop-shadow-lg rounded-xl">
+            <div class="w-full flex flex-col items-left justify-left gap-5">
+                <div class="flex flex-row justify-between gap-5">
+                    <div class="text-left font-semibold" [innerHTML]="(i+1) + '. ' + question.questionText"></div>
+                </div>
+                <div *ngFor="let answer of question.answers" class="flex flex-row gap-2">
+                    <label class="text-left px-1 rounded-lg {{answer.correct ? 'bg-green-400' : ''}}" [innerHTML]="answer.text"></label>
+                </div>
+            </div>
+            <a class="w-full sm:w-44 h-fit p-2 text-sm font-semibold rounded-lg bg-red-500 hover:bg-red-700 hover:text-white hover:drop-shadow-lg
+                text-center cursor-pointer transition duration-150 ease-in text-white" (click)="deleteQuestion(question)">Elimina</a>
+        </div>
+        
+    </div>
+    
+
+</div>
